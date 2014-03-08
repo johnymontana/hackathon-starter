@@ -6,16 +6,16 @@ var async = require('async');
 var cheerio = require('cheerio');
 var request = require('request');
 var _ = require('underscore');
-var graph = require('fbgraph');
-var LastFmNode = require('lastfm').LastFmNode;
-var tumblr = require('tumblr.js');
-var foursquare = require('node-foursquare')({ secrets: secrets.foursquare });
-var Github = require('github-api');
+//var graph = require('fbgraph');
+//var LastFmNode = require('lastfm').LastFmNode;
+//var tumblr = require('tumblr.js');
+//var foursquare = require('node-foursquare')({ secrets: secrets.foursquare });
+//var Github = require('github-api');
 var Twit = require('twit');
-var paypal = require('paypal-rest-sdk');
-var twilio = require('twilio')(secrets.twilio.sid, secrets.twilio.token);
-var Linkedin = require('node-linkedin')(secrets.linkedin.clientID, secrets.linkedin.clientSecret, secrets.linkedin.callbackURL);
-var clockwork = require('clockwork')({key: secrets.clockwork.apiKey});
+//var paypal = require('paypal-rest-sdk');
+//var twilio = require('twilio')(secrets.twilio.sid, secrets.twilio.token);
+//var Linkedin = require('node-linkedin')(secrets.linkedin.clientID, secrets.linkedin.clientSecret, secrets.linkedin.callbackURL);
+//var clockwork = require('clockwork')({key: secrets.clockwork.apiKey});
 
 /**
  * GET /api
@@ -251,11 +251,12 @@ exports.getTwitter = function(req, res, next) {
     access_token: token.accessToken,
     access_token_secret: token.tokenSecret
   });
-  T.get('search/tweets', { q: 'hackathon since:2013-01-01', geocode: '40.71448,-74.00598,5mi', count: 50 }, function(err, reply) {
+  //T.get('search/tweets', { q: 'hackathon since:2013-01-01', geocode: '40.71448,-74.00598,5mi', count: 50 }, function(err, reply) {
+  T.get('statuses/home_timeline', {}, function(err, reply) {
     if (err) return next(err);
     res.render('api/twitter', {
       title: 'Twitter API',
-      tweets: reply.statuses
+      tweets: reply
     });
   });
 };
